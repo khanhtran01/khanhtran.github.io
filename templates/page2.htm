@@ -1,0 +1,201 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title></title>
+    <link rel="icon" href="{% static '/logo/6.png'" type="image/x-icon">
+    <link rel="stylesheet" href="{% static './assets/css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="author" content="Khanh Tran Le Viet">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './assets/themify-icons/themify-icons.css' %}">
+
+</head>
+
+<body>
+
+    <div id="main">
+        <div id="header">
+            <div id="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#band">Band</a></li>
+                    <li><a href="#tour">Tour</a></li>
+                    <li><a href="#Contact">Contact</a></li>
+                    <li><a href="">More</a>
+                        <ul class="subnav">
+                            <li><a href="">Mechadise</a></li>
+                            <li><a href="">Extras</a></li>
+                            <li><a style="border-radius: 4px;" href="">Media</a></li>
+                        </ul>
+                    </li>
+                    <li class="search">
+                        {% if user.is_authenticated %}
+                        <a href="logout">Logout</a>
+                        {% else %}
+                        <a href="login">Login or Sign up</a>
+                        {% endif %}
+                    </li>
+                    
+                    <li class="search">
+                        <em class="header-icon ti-search"></em>
+                    </li>
+                    
+
+                </ul>
+            </div>
+            <div id="menu" onclick="MenuFunction()">
+                <ul>
+                    <li><em class="ti-menu"></em>
+                        <div id="submenu" class="submenu">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#band">Band</a></li>
+                                <li><a href="#tour">Tour</a></li>
+                                <li><a href="#Contact">Contact</a></li>
+                                <li><a href="">Mechadise</a></li>
+                                <li><a href="">Extras</a></li>
+                                <li><a href="">Media</a></li>
+                                <li class="search">
+                                    <em class="header-icon ti-search"></em>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div id="slider">
+            <div id="slider-content">
+                {% if user.is_authenticated  %}
+                <h1>Welcome, {{user.username}}</h1>
+                {% else %}
+                <h1>Author: Khanh Tran</h1>
+                {% endif %}
+                <p>this is desciption</p>
+            </div>
+        </div>
+
+
+        <div id="content">
+            <div id="band" class="page1">
+                <h2 class="heading">ABOUT ME</h2>
+                <p class="sub-heading">Never give up</p>
+                <p class="about-text">Definitions of the word literature tend to be circular. The 11th edition of
+                    Merriam-Webster’s Collegiate Dictionary considers literature to be “writings having excellence of
+                    form or expression and expressing ideas of permanent or universal interest.” The 19th-century critic
+                    Walter Pater referred to “the matter of imaginative or artistic literature” as a “transcript, not of
+                    mere fact, but of fact in its infinitely varied forms.” But such definitions assume that the reader
+                    already knows what literature is. And indeed its central meaning, at least, is clear enough.
+                    Deriving from the Latin littera, “a letter of the alphabet,” literature is first and foremost
+                    humankind’s entire body of writing; after that it is the body of writing belonging to a given
+                    language or people; then it is individual pieces of writing.</p>
+                <div class="row member">
+                    {% for image in imgs %}
+                    <div class="col col-third">
+                        <p id="name1">{{image.name}}</p>
+                        <img src="{% static './assets/img/thanh_vien.jpg' %}" alt="husky-member">
+                    </div>
+                    {% endfor %}
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="background-page2">
+                <div id="tour" class="page2">
+                    <h2 class="heading">TOUR DATE</h2>
+                    <p class="sub-heading">Buy a ticket</p>
+                    <ul class="ticket-list">
+                        {% for ticket in tickets %}
+                        
+                        {% if ticket.numb == 0 %}
+                        <li>{{ticket.month}} <span class="sold-out">Sold out</span></li>
+                        {% else %}
+                        <li>{{ticket.month}} <span class="quantity">{{ticket.numb}}</span></li>
+                        {% endif %}
+
+                        {% endfor %}
+                    </ul>
+                    <div class="row place">
+                        {% for tour in tours %}
+                        <div class="col col-third">
+                            <img src="{% static './assets/img/vinh-ha-long-1.jpg' %}" alt="halong">
+                            <div class="place-content">
+                                <h1>{{tour.content}}</h1>
+                                <p class="time">{{tour.day}}</p>
+                                <p class="place-desc"><strong>{{tour.content}}</strong>{{tour.details}}</p>
+                                <a href="" class="place-buy">{{tour.button}}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="Contact" class="page3">
+                <h2 class="heading">CONTACT</h2>
+                <p class="sub-heading">Buy a ticket</p>
+                <div class="row form-sign">
+
+                    <div class="col col-half">
+                        <p><em class="ti-location-pin"></em>Que Phu, Que Son</p>
+                        <p><em class="ti-mobile"></em>Phone : 0xxxxxxxxx</p>
+                        <p><em class="ti-email"></em>Email: butbixanh20@gmal.com</p>
+                    </div>
+
+                    <div class="col col-half">
+                        <form action="w3result", method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col col-half">
+                                    <input type="text" name="name" placeholder="Name" id="Name" required>
+
+                                </div>
+                                <div class="col col-half">
+                                    <input type="email" name="email" placeholder="Email" id="Email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-full">
+                                    <input type="text" name="message" placeholder="Message" id="Mes" required>
+                                </div>
+                            </div>
+                            <input type="submit" value="send" id="send" name="send">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="page4">
+                <img src="{% static './assets/img/page4.jpg' %}" alt="page4">
+            </div>
+        </div>
+
+        <div id="footer">
+            <a href="{% static 'https://www.facebook.com/khanh.tranleviet/' %}" target="_blank"><em class="ti-facebook"></em></a>
+            <a href=""><em class="ti-instagram"></em></a>
+            <a href=""><em class="ti-agenda"></em></a>
+            <a href="{% static 'https://twitter.com/TrnLVitKhnh1' %}"><em class="ti-twitter"></em></a>
+            <a href="{% static 'https://www.youtube.com/channel/UCrDF__xFQChPbpuBHMj49bw' %}"><em class="ti-youtube"></em></a>
+            <a href=""><em class="ti-linkedin"></em></a>
+
+        </div>
+    </div>
+    <script>
+        function MenuFunction (){
+            var menu = document.getElementById('submenu');
+            console.log(menu);
+            if (menu.style.visibility == 'visible')
+            {
+                menu.style.visibility == 'hidden';
+            }
+            else {
+                menu.style.visibility == 'visible';
+            }
+        }
+    </script>
+</body>
+
+</html>

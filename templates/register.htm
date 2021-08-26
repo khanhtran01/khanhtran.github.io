@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './assets/css/reg_style.css' %}">
+    <title>Register</title>
+</head>
+<body>
+    {% for message in messages %}
+    <h5>{{message}}</h5>
+    {% endfor %}
+    <div class="my_form">
+        <form action="register", method="POST">
+            {% csrf_token %}
+            <p>User name :</p>
+            <input type="text" name="username" id="username" placeholder="username" required>
+            <p>E-mail :</p>
+            <input type="e-mail" name="email" id="email" placeholder="E-mail" required>
+            <p>password :</p>
+            <input type="text" name="password" id="password" placeholder="password" required>
+            <p>confirm password</p>
+            <input type="text" name="confirm-password" id="confirm-password" placeholder="confirm-password" required>
+            <br><input type="submit">
+        </form>
+    </div>
+    
+</body>
+</html>

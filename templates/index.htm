@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<!-- {% for object in objs %}
+<h1>How are you today {{object.name}}
+<br> you are  {{object.details}} years old
+</h1>
+{% endfor %} -->
+<h1>Input your text below: </h1>
+<form action="counter", method="POST">
+    {% csrf_token %}
+    <textarea name="text" id="name" cols="30" rows="10"></textarea>
+    <input type="submit">
+</form>
+
+
+<form action="register">
+
+    <input type="submit" value="click to register">    
+</form>
+
+<form action="login">
+
+    <input type="submit" value="click to login">    
+</form>
